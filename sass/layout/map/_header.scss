@@ -1,0 +1,33 @@
+@use "variables" as *;
+@use "../../variables/" as *;
+
+header.header-map{
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $height-header-main;
+
+    background-color: gray;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 3px 3px 3px #000b;
+
+    padding: 0 10px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 10px;
+
+    nav{
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .filters{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 1rem;
+        button{@include button-header-filter;}
+    }
+}

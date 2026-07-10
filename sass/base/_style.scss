@@ -1,0 +1,56 @@
+body{
+    margin:0;
+    background-color: black;
+    // opacity: 1;
+    // transition: opacity .5s ease;
+}
+// .loading{
+//     opacity: 0;
+// }
+
+// #loading{
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     z-index: 2500;
+//     background-color: black;
+//     color: white;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     transition: opacity .5s ease;
+//     .loader{
+//         /* border: 2px #17177c solid; */
+//         /* border-radius: 50%; */
+//         /* border: 2px green dashed; */
+//         width: 150px;
+//         aspect-ratio: 1;
+//         display: grid;
+//         /* These make it look circularly faded */
+//         -webkit-mask: conic-gradient(from 22deg, #0003,#000);
+//         mask: conic-gradient(from 22deg, #0003,#000);
+//         /* This makes it spin */
+//         animation: load .5s steps(8) infinite;
+//     }
+//     .loader, .loader::before{
+//         --_g: linear-gradient(#17177c 0 0) 50%;
+//         background:
+//             var(--_g) 50%/34% 8% space no-repeat,
+//             var(--_g) 50%/8% 34% no-repeat space;
+//     }
+//     .loader::before{
+//         content: "";
+//         transform: rotate(45deg);
+//     }
+//     /* from{transform:rotate(0turn)} */
+//     @keyframes load{
+//         to{transform:rotate(1turn)}
+//     }
+// }
+
+// #loading.loaded{
+//     opacity: 0;
+//     pointer-events: none;
+// }

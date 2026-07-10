@@ -1,0 +1,14 @@
+@use "variables" as *;
+
+footer.footer-map{
+    position: absolute;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: $height-footer-main;
+
+    background-color: gray;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -3px 3px 3px #000b;
+}
