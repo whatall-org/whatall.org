@@ -62,19 +62,20 @@ $popup-border: 3px black solid;
                 &.active{
                     background-color: #4b3663;
                     border-bottom: 2px black solid;
+                    z-index: 5
                 }
             }
             .tab-lineup{
                 border-right: 2px black solid;
                 &.active{
-                    border-bottom-right-radius: $popup-border-radius;
+                    border-bottom-right-radius: $popup-border-radius;;
                 }
             }
             .tab-place-details::after {
                 content: "";
                 position: absolute;
                 left: -10px;
-                background-color: blue;
+                background-color: #191221;
                 width: 10px;
                 height: 10px;
                 bottom: 0;
