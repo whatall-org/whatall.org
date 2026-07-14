@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #loading{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2500;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity .5s ease;
+            
+        }
+        #loading .loader{
+            width: 150px;
+            aspect-ratio: 1;
+            display: grid;
+            -webkit-mask: conic-gradient(from 22deg, #0003,#000);
+            mask: conic-gradient(from 22deg, #0003,#000);
+            animation: load .5s steps(8) infinite;
+        }
+        #loading .loader, .loader::before{
+            --_g: linear-gradient(#17177c 0 0) 50%;
+            background:
+                var(--_g) 50%/34% 8% space no-repeat,
+                var(--_g) 50%/8% 34% no-repeat space;
+        }
+        #loading .loader::before{
+            content: "";
+            transform: rotate(45deg);
+        }
+        @keyframes load{
+            to{transform:rotate(1turn)}
+        }
+
+        #loading.loaded{
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Mockup</title>
+    <link 
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""
+    />
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <div id="loading">
+        <div class="loader"></div>
+    </div>
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""
+    ></script>
+    <div id="root">
+        <header class="header-map">
+            <nav>
+                <a href="/">about</a>
+                <a href="/">contribute</a>
+                <a href="/">requests</a>
+            </nav>
+            <div class="filters">
+                <img class="filter-callout" src="../static/images/icons/filter-solid-full.svg" alt="">
+                <div class="button-wrap">
+                    <div class="filter-button-container">
+                        <button><img src="../static/images/icons/calendar-regular-full.svg" alt="">
+                            when
+                        </button>
+                        <div class="filter-when-arrow"></div>
+                    </div>
+                    <button><img src="../static/images/icons/music-note.png" alt="">what</button>
+                    <button><img src="../static/images/icons/people-icon-gay.png" alt="">who</button>
+                </div>
+                <div id="filter_when" class="filter-window">
+                    <div class="window-inner">
+
+                    </div>
+                </div>
+                <!-- <div id="filter_what" class="filter-window">
+                    <div class="window-inner">
+                        
+                    </div>
+                </div>
+                <div id="filter_who" class="filter-window">
+                    <div class="window-inner">
+                        
+                    </div>
+                </div> -->
+            </div>
+        </header>
+        <div id="tooltip_filter_callout">
+            <div class="close">X</div>
+            <p>Click here to filter results</p>
+        </div>
+        <div id="popup_main">
+            <div class="window-inner">
+                <header>
+                    <div class="tab-lineup active">
+                        <h3>what all</h3>
+                    </div>
+                    <div class="tab-place-details">
+                        <h3>what is</h3>
+                    </div>
+                </header>
+                <div class="content">
+
+                </div>
+            </div>
+        </div>
+        <div id="map" class="content"></div>
+        <footer class="footer-map">
+            <p>Every submission is reviewed to add to the map!</p>
+            <button>Submit an Event</button>
+        </footer>
+    </div>
+    <script>
+        let open = false
+        const popupMain = document.getElementById('popup_main')
+        const popupInner = popupMain.querySelector('.window-inner')
+        popupMain.addEventListener('click',e=>{
+            if(!open){
+                popupInner.classList.remove('close')
+                popupInner.classList.add('open')
+                open = true
+            }else{
+                popupInner.classList.remove('open')
+                popupInner.classList.add('close')
+                open = false
+            }
+        })
+        var map = L.map('map',{zoomControl:false}).setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const popupContent = `
+        <div class="my-custom-popup">
+            <h3>Location Title</h3>
+            <p>Custom text, images, or buttons can go here.</p>
+            <button onclick="alert('Action triggered!')">Click Me</button>
+        </div>
+        `;
+
+        // 2. Define popup configuration options
+        const popupOptions = {
+        maxWidth: 300,         // Sets maximum width
+        minWidth: 200,         // Sets minimum width
+        className: 'custom-tip' // Custom CSS class for styling
+        };
+
+        // 3. Bind the custom popup to your map marker
+        L.marker([51.5, -0.09])
+            .addTo(map)
+            .bindPopup(popupContent, popupOptions)
+            .openPopup()
+    </script>
+    <script src="../static/js/load.js"></script>
+</body>
+</html>

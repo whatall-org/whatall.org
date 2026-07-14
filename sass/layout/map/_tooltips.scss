@@ -1,0 +1,47 @@
+@use "../../variables" as *;
+@use "variables" as *;
+
+#tooltip_filter_callout{
+	position: absolute;
+    top: calc($height-header-main + 13px);
+	right: 4px;
+	z-index: 1000;
+	display: inline-block;
+	background: #007bff;
+	color: #ffffff;
+	padding: 8px;
+    padding-left: 4px;
+	border-radius: 10px;
+	font-family: $font-main;
+	font-size: 18px;
+    font-weight: 500;
+	max-width: 250px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    display: none;
+    .close{
+        background-color: black;
+        color: white;
+        font-size: 12px;
+        padding: 2px 4px;
+        border-radius: 2px;
+        font-weight: bold;
+    }
+    p{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+	&::after{
+		content: "";
+		position: absolute;
+		top: -10px;
+		right: 7px;
+		width: 0;
+		height: 0;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		border-bottom: 10px solid #007bff;
+	}
+}

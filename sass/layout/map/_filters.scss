@@ -1,0 +1,19 @@
+@use "variables" as *;
+
+.filter-window{
+    @include window-base;
+    display: none;
+}
+
+.filter-button-container{
+    position: relative;
+    .filter-when-arrow{
+        position: absolute;
+        bottom: -25px;
+        right: 30px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid black;
+        display: none;
+    }
+}

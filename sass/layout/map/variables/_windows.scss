@@ -1,0 +1,24 @@
+@use "heights" as *;
+@use "../../../variables" as *;
+
+$popup-border-radius: 8px;
+$popup-border: 3px black solid;
+
+@mixin window-base{
+    height: calc(100dvh - $height-header-main - $height-footer-main);
+    top: $height-header-main;
+    width: 100%;
+    right: 0;
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+    .window-inner{
+        margin: 13px 10px 10px 10px;
+        border: $popup-border;
+        background-color: #4b3663;
+        flex: 0 1 $screen-map-break-header;
+        border-radius: $popup-border-radius;
+        box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+    }
+}

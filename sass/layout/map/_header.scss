@@ -1,17 +1,18 @@
-@use "variables" as *;
 @use "../../variables/" as *;
+@use "variables" as *;
 
 header.header-map{
     position: absolute;
-    z-index: 1000;
+    z-index: $navigation;
     top: 0;
     left: 0;
     right: 0;
     height: $height-header-main;
 
-    background-color: gray;
+    background: $color-bg-header;
+    color: $color-fg-header;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0 3px 3px 3px #000b;
+    box-shadow: 0 1px 1px 1px #000b;
 
     padding: 0 10px;
     display: grid;
@@ -22,12 +23,29 @@ header.header-map{
         display: flex;
         align-items: center;
         gap: 1rem;
+        a{@include text-link-header;}
     }
     .filters{
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-end;
         align-items: center;
-        gap: 1rem;
-        button{@include button-header-filter;}
+        gap: 10px;
+        .filter-callout{
+            height: 16px;
+            @media(max-width: $screen-map-break-header){
+                height: 25px;
+                cursor: pointer;
+            }
+        }
+        .button-wrap{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 1rem;
+            button{@include button-main;}
+            @media(max-width: $screen-map-break-header){
+                display: none;
+            }
+        }
     }
 }

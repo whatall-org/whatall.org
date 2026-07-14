@@ -1,14 +1,36 @@
+@use "../../variables" as *;
 @use "variables" as *;
 
 footer.footer-map{
     position: absolute;
-    z-index: 1000;
+    z-index: $navigation;
     bottom: 0;
     left: 0;
     right: 0;
     height: $height-footer-main;
 
-    background-color: gray;
+    background: $color-bg-footer;
+    color: $color-fg-footer;
     border-radius: 10px 10px 0 0;
-    box-shadow: 0 -3px 3px 3px #000b;
+    box-shadow: 0 -1px 1px 1px #000b;
+    padding: 0 10px;
+    font-family: $font-main;
+    
+
+    display: flex;
+    justify-content: flex-end;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    p{
+        flex: 1 1 200px;
+        text-align: center;
+        @media(max-width: $screen-map-small){
+            display: none;
+        }
+    }
+    button{
+        flex: 0 0 165px;
+        @include button-main;
+    }
 }

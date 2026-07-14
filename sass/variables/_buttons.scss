@@ -1,6 +1,28 @@
-@mixin button-header-filter{
+@mixin button-main{
+    border: 2px solid #0000;
+    border-radius: 5px;
+    background: 
+        conic-gradient(#fff) padding-box,
+        linear-gradient(to bottom right, #b80ff0 ,#d46ff6) border-box;
     font-size: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px black;
+    padding: 4px 6px 4px 3px;
+
+    font-family: "Figtree", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    box-shadow: 1px 2px 3px white;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    &:hover{
+        background: 
+            conic-gradient(#fff) padding-box,
+            linear-gradient(to bottom right,#d56ef5, #f1cffc) border-box;
+    }
+    img{
+        height: 25px;
+    }
 }
