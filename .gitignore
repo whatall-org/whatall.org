@@ -1,6 +1,7 @@
 # Style files
-*.css
-*.css.map
+# *.css
+# *.css.map
+static/css/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
