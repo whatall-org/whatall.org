@@ -81,11 +81,8 @@ $popup-border: 3px black solid;
                 bottom: 0;
                 z-index: 0;
             }
-            // .tab-place-details{
-            //     border-left: $popup-border;
-            // }
         }
     }
     @include window-base;
-    // display: none;
+    display: none;
 }
