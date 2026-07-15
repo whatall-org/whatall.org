@@ -1,9 +1,12 @@
 @mixin text-link-header{
-    color: white;
+    color: hotpink;
     font-family: "Figtree", sans-serif;
     font-optical-sizing: auto;
     font-weight: bold;
     font-style: normal;
-    text-decoration-color: hotpink;
+    text-decoration-color: white;
     text-decoration-thickness: 2px;
+    background-color: black;
+    padding: 4px 10px 8px 10px;
+    border-radius: 5px;
 }
