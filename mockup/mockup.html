@@ -64,6 +64,11 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""
     ></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.10/dist/htmx.min.js" 
+        integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V"
+        crossorigin="anonymous"
+    ></script>
     <div id="root">
         <header class="header-map">
             <nav>
@@ -104,7 +109,14 @@
             <div class="close">X</div>
             <p>Click here to filter results</p>
         </div>
-        <div id="popup_main">
+        <div
+            id="popup_main"
+            hx-get="/mockup/popup.html"
+            hx-swap="innerHTML transition:true"
+        >
+            
+        </div>
+        <!-- <div id="popup_main">
             <div class="window-inner">
                 <header>
                     <div class="tab-lineup active">
@@ -115,10 +127,10 @@
                     </div>
                 </header>
                 <div class="content">
-
+                    Testing htmx
                 </div>
             </div>
-        </div>
+        </div> -->
         <div id="map" class="content"></div>
         <footer class="footer-map">
             <p>Every submission is reviewed to add to the map!</p>
@@ -126,20 +138,20 @@
         </footer>
     </div>
     <script>
-        let open = false
-        const popupMain = document.getElementById('filter_when')
-        const popupInner = popupMain.querySelector('.window-inner')
-        popupMain.addEventListener('click',e=>{
-            if(!open){
-                popupInner.classList.remove('close')
-                popupInner.classList.add('open')
-                open = true
-            }else{
-                popupInner.classList.remove('open')
-                popupInner.classList.add('close')
-                open = false
-            }
-        })
+        // let open = false
+        // const popupMain = document.getElementById('popup_main')
+        // const popupInner = popupMain.querySelector('.window-inner')
+        // popupMain.addEventListener('click',e=>{
+        //     if(!open){
+        //         popupInner.classList.remove('close')
+        //         popupInner.classList.add('open')
+        //         open = true
+        //     }else{
+        //         popupInner.classList.remove('open')
+        //         popupInner.classList.add('close')
+        //         open = false
+        //     }
+        // })
         var map = L.map('map',{zoomControl:false}).setView([51.505, -0.09], 13);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
