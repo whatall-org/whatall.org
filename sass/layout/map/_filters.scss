@@ -1,15 +1,38 @@
 @use "variables" as *;
 
+@keyframes filterEnter{
+    0%{
+        clip-path: polygon(345px 0, 365px 0, 70% 100%, 30% 100%);
+        transform:
+            perspective(800px)
+            rotateX(50deg)
+            scaleY(0);
+    }
+    100%{
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+        transform:
+            perspective(800px)
+            rotateX(0)
+            scaleY(1);
+    }
+}
+
 .filter-window{
     @include window-base;
     // display: none;
     .window-inner{
         transform-origin: top center;
-        transform: 
-            perspective(800px)
-            rotateX(50deg)
-            scaleY(.5);
-        clip-path: polygon(345px 0, 365px 0, 70% 100%, 30% 100%);
+        &.open{
+            animation: filterEnter .3s ease-out forwards;
+        }
+        &.close{
+            display: none;
+        }
     }
 }
 
