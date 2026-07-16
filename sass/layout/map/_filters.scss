@@ -49,6 +49,11 @@
     display: none;
     .window-inner{
         transform-origin: top center;
+        // clip-path: polygon(345px 0, 365px 0, 70% 100%, 30% 100%);
+        // transform:
+        //     perspective(800px)
+        //     rotateX(50deg)
+        //     scaleY(.5);
         &.open{
             animation: filterEnter .3s ease-out forwards;
         }

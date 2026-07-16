@@ -80,7 +80,7 @@
                 <img class="filter-callout" src="../static/images/icons/filter-solid-full.svg" alt="">
                 <div class="button-wrap">
                     <div class="filter-button-container">
-                        <button><img src="../static/images/icons/calendar-regular-full.svg" alt="">
+                        <button><img src="../static/images/icons/calendar-regular-full-black.svg" alt="">
                             when
                         </button>
                         <div class="filter-when-arrow"></div>
@@ -113,24 +113,8 @@
             id="popup_main"
             hx-get="/mockup/popup.html"
             hx-swap="innerHTML transition:true"
-        >
-            
-        </div>
-        <!-- <div id="popup_main">
-            <div class="window-inner">
-                <header>
-                    <div class="tab-lineup active">
-                        <h3>what all</h3>
-                    </div>
-                    <div class="tab-place-details">
-                        <h3>what is</h3>
-                    </div>
-                </header>
-                <div class="content">
-                    Testing htmx
-                </div>
-            </div>
-        </div> -->
+            hx-trigger="load"
+        ></div>
         <div id="map" class="content"></div>
         <footer class="footer-map">
             <p>Every submission is reviewed to add to the map!</p>
@@ -139,7 +123,7 @@
     </div>
     <script>
         // let open = false
-        // const popupMain = document.getElementById('popup_main')
+        // const popupMain = document.getElementById('filter_when')
         // const popupInner = popupMain.querySelector('.window-inner')
         // popupMain.addEventListener('click',e=>{
         //     if(!open){

@@ -2,7 +2,8 @@
 @use "../../variables" as *;
 
 $popup-border-radius: 8px;
-$popup-border: 3px black solid;
+$popup-border-thickness: 3px;
+$popup-border: $popup-border-thickness black solid;
 
 @keyframes popupEnter{
     0%{
@@ -42,49 +43,54 @@ $popup-border: 3px black solid;
 }
 
 #popup_main{
-    // perspective: 1700px;
     @include window-base;
     .window-inner{
-        // transform-origin: 100% 50%;
-        // transform-style: preserve-3d;
-        // backface-visibility: hidden;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        grid-template-areas: "header" "content";
         view-transition-name: map-popup;
-        // transform: rotateY(60deg) scaleX(0);
-        // &.open{
-        //     animation: popupEnter .4s ease-out forwards;
-        // }
-        // &.close{
-        //     animation: popupExit .4s ease-in forwards;
-        // }
-        header{
+        color: white;
+        header.header-main{
             display: flex;
             justify-content: space-around;
+            grid-area: "header";
             .tab-lineup,.tab-place-details{
+                cursor: pointer;
                 position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 width: 110%;
-                color: white;
                 text-align: center;
                 flex: 1 1 50%;
-                // border-bottom: $popup-border;
                 box-sizing: border-box;
+                padding: 10px;
                 background-color: #191221;
                 background-image: 
-                    /* 1. Top left highlight (Light source) */
                     linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%),
-                    /* 2. Bottom right shadow (Depth) */
                     linear-gradient(315deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 50%);
-                /* Blend properly for a natural 3D gloss */
                 background-blend-mode: overlay, multiply;
+                h3{
+                    font-size: 22px;
+                    margin: 0;
+                }
+
                 &.active{
-                    background-color: #4b3663;
+                    cursor: default;
+                    background-color: #644884;
+                    text-shadow: 1px 1px pink;
+                    box-shadow: 
+                        inset -4px -4px 4px 0px rgba(0, 0, 0, 0.3),
+                        inset 3px 3px 2px 0px rgba(0, 0, 0, 0.3),;
                     border-bottom: 2px black solid;
-                    z-index: 5
+                    z-index: 5;
                 }
             }
             .tab-lineup{
                 border-right: 2px black solid;
+                border-top-left-radius: calc($popup-border-radius - $popup-border-thickness);
                 &.active{
-                    border-bottom-right-radius: $popup-border-radius;;
+                    border-bottom-right-radius: calc($popup-border-radius - $popup-border-thickness);
                 }
             }
             .tab-place-details::after {
@@ -96,6 +102,54 @@ $popup-border: 3px black solid;
                 height: 10px;
                 bottom: 0;
                 z-index: 0;
+            }
+            .tab-place-details{
+                border-bottom-right-radius: calc($popup-border-radius - $popup-border-thickness);
+                span{font-size: 14px;}
+            }
+        }
+        .content-lineup{
+            grid-area: content;
+            color: white;
+            overflow-x: scroll;
+            a.card-event{
+                display: block;
+                margin: 15px;
+                border: 3px black solid;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+                border-radius: $popup-border-radius;
+                background-color: #644884;
+                color: white;
+                text-decoration: none;
+                header.header-card{
+                    padding: 20px;
+                    background-color: black;
+                    h3{
+                        margin-top: 0;
+                        margin-bottom: 4px;
+                        color: hotpink;
+                        text-decoration: underline;
+                        text-decoration-color: white;
+                        text-decoration-thickness: 2px;
+                    }
+                    .when{
+                        color: white;
+                        .date,.time{
+                            display: flex;
+                            gap: 3px;
+                            img{width: 20px;}
+                            p{margin: 4px 0;}
+                        }
+                    }
+                }
+                .img-wrapper{
+                    padding: 20px;
+                    padding-bottom: 0;
+                    img{width: 100%;}
+                }
+                .description{
+                    padding: 0 20px;
+                }
             }
         }
     }
