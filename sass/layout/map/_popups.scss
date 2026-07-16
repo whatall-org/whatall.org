@@ -111,7 +111,7 @@ $popup-border: $popup-border-thickness black solid;
         .content-lineup{
             grid-area: content;
             color: white;
-            overflow-x: scroll;
+            overflow-y: scroll;
             a.card-event{
                 display: block;
                 margin: 15px;
