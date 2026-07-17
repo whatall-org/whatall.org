@@ -1,13 +1,13 @@
 @use "variables" as *;
 
-@keyframes filterEnter{
-    0%{
-        clip-path: polygon(345px 0, 365px 0, 70% 100%, 30% 100%);
-        transform:
-            perspective(800px)
-            rotateX(50deg)
-            scaleY(0);
-    }
+@keyframes filterWhatEnter{
+    // 0%{
+    //     clip-path: polygon(342px 0, 361px 0, 70% 100%, 30% 100%);
+    //     transform:
+    //         perspective(800px)
+    //         rotateX(50deg)
+    //         scaleY(0);
+    // }
     100%{
         clip-path: polygon(
             0 0,
@@ -22,7 +22,7 @@
     }
 }
 
-@keyframes filterExit{
+@keyframes filterWhatExit{
     0%{
         clip-path: polygon(
             0 0,
@@ -36,7 +36,7 @@
             scaleY(1);
     }
     100%{
-        clip-path: polygon(345px 0, 365px 0, 70% 100%, 30% 100%);
+        clip-path: polygon(342px 0, 361px 0, 70% 100%, 30% 100%);
         transform:
             perspective(800px)
             rotateX(50deg)
@@ -46,32 +46,32 @@
 
 .filter-window{
     @include window-base;
-    display: none;
     .window-inner{
         transform-origin: top center;
-        // clip-path: polygon(345px 0, 365px 0, 70% 100%, 30% 100%);
-        // transform:
-        //     perspective(800px)
-        //     rotateX(50deg)
-        //     scaleY(.5);
+	    clip-path: polygon(342px 0, 361px 0, 70% 100%, 30% 100%);
+        transform:
+            perspective(800px)
+            rotateX(50deg)
+            scaleY(0);
         &.open{
-            animation: filterEnter .3s ease-out forwards;
+            animation: filterWhatEnter .3s ease-out forwards;
         }
         &.close{
-            animation: filterExit .3s ease-in forwards;
+            animation: filterWhatExit .3s ease-in forwards;
         }
     }
 }
 
 .filter-button-container{
     position: relative;
-    .filter-when-arrow{
+    .filter-what-arrow,.filter-when-arrow{
         position: absolute;
         bottom: -25px;
         right: 30px;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
         border-bottom: 10px solid black;
-        display: none;
+        pointer-events: none;
+        // opacity: 0;
     }
 }

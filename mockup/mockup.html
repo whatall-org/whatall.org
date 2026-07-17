@@ -69,6 +69,7 @@
         integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V"
         crossorigin="anonymous"
     ></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
     <div id="root">
         <header class="header-map">
             <nav>
@@ -80,29 +81,32 @@
                 <img class="filter-callout" src="../static/images/icons/filter-solid-full.svg" alt="">
                 <div class="button-wrap">
                     <div class="filter-button-container">
+                        <button id="filter_button_what"><img src="../static/images/icons/music-note.png" alt="">what</button>
+                        <div class="filter-what-arrow"></div>
+                    </div>
+                    <div class="filter-button-container">
                         <button><img src="../static/images/icons/calendar-regular-full-black.svg" alt="">
                             when
                         </button>
                         <div class="filter-when-arrow"></div>
                     </div>
-                    <button><img src="../static/images/icons/music-note.png" alt="">what</button>
                     <button><img src="../static/images/icons/people-icon-gay.png" alt="">who</button>
+                </div>
+                <div id="filter_what" class="filter-window">
+                    <div class="window-inner">
+                        
+                    </div>
                 </div>
                 <div id="filter_when" class="filter-window">
                     <div class="window-inner">
 
                     </div>
                 </div>
-                <!-- <div id="filter_what" class="filter-window">
-                    <div class="window-inner">
-                        
-                    </div>
-                </div>
                 <div id="filter_who" class="filter-window">
                     <div class="window-inner">
                         
                     </div>
-                </div> -->
+                </div>
             </div>
         </header>
         <div id="tooltip_filter_callout">
@@ -113,7 +117,7 @@
             id="popup_main"
             hx-get="/mockup/popup.html"
             hx-swap="innerHTML transition:true"
-            hx-trigger="load"
+            hx-trigger="click"
         ></div>
         <div id="map" class="content"></div>
         <footer class="footer-map">
@@ -122,6 +126,37 @@
         </footer>
     </div>
     <script>
+        let openFilter = false
+
+        const filterButtonWhat = document.getElementById('filter_button_what')
+        const filterWhat = document.querySelector('#filter_what .window-inner')
+        filterButtonWhat.addEventListener('click',()=>{
+            // e.preventDefault()
+            if(!openFilter){
+                filterWhat.classList.add('open')
+                openFilter = filterWhat
+            }else{
+                if(openFilter != filterWhat){
+                    filterWhat.classList.add('open')
+                    openFilter = filterWhat
+                }else{
+                    filterWhat.classList.add('close')
+                    openFilter = false
+                }
+            }
+            if(openFilter){
+            }
+        })
+
+        filterWhat.addEventListener('animationend', ()=>{
+            if(filterWhat.classList.contains('close')){
+                filterWhat.classList.remove('close', 'open')
+            }
+        })
+        // filterWhat.addEventListener('animationend', e=>{
+        //     filterWhat.classList.remove('open')
+        // })
+
         // let open = false
         // const popupMain = document.getElementById('filter_when')
         // const popupInner = popupMain.querySelector('.window-inner')

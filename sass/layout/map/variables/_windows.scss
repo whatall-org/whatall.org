@@ -13,6 +13,7 @@ $popup-border: 3px black solid;
     z-index: 1000;
     display: flex;
     justify-content: flex-end;
+    pointer-events: none;
     .window-inner{
         margin: 13px 10px 10px 10px;
         border: $popup-border;
@@ -20,5 +21,6 @@ $popup-border: 3px black solid;
         flex: 0 1 $screen-map-break-header;
         border-radius: $popup-border-radius;
         box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+        pointer-events: auto;
     }
 }
