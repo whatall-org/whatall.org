@@ -85,26 +85,31 @@
                         <div class="filter-what-arrow"></div>
                     </div>
                     <div class="filter-button-container">
-                        <button><img src="../static/images/icons/calendar-regular-full-black.svg" alt="">
+                        <button id="filter_button_when"><img src="../static/images/icons/calendar-regular-full-black.svg" alt="">
                             when
                         </button>
                         <div class="filter-when-arrow"></div>
                     </div>
-                    <button><img src="../static/images/icons/people-icon-gay.png" alt="">who</button>
+                    <div class="filter-button-container">
+                        <button id="filter_button_who"><img src="../static/images/icons/people-icon-gay.png" alt="">
+                            who
+                        </button>
+                        <div class="filter-when-arrow"></div>
+                    </div>
                 </div>
                 <div id="filter_what" class="filter-window">
                     <div class="window-inner">
-                        
+                        What
                     </div>
                 </div>
                 <div id="filter_when" class="filter-window">
                     <div class="window-inner">
-
+                        When
                     </div>
                 </div>
                 <div id="filter_who" class="filter-window">
                     <div class="window-inner">
-                        
+                        Who
                     </div>
                 </div>
             </div>
@@ -113,12 +118,7 @@
             <div class="close">X</div>
             <p>Click here to filter results</p>
         </div>
-        <div
-            id="popup_main"
-            hx-get="/mockup/popup.html"
-            hx-swap="innerHTML transition:true"
-            hx-trigger="click"
-        ></div>
+        <div id="popup_main"></div>
         <div id="map" class="content"></div>
         <footer class="footer-map">
             <p>Every submission is reviewed to add to the map!</p>
@@ -126,77 +126,74 @@
         </footer>
     </div>
     <script>
-        let openFilter = false
+        let openFilter          = false
+        let popupOpen           = false
+        const filterButtonWhat  = document.getElementById('filter_button_what')
+        const filterWhat        = document.querySelector('#filter_what .window-inner')
+        const filterButtonWhen  = document.getElementById('filter_button_when')
+        const filterWhen        = document.querySelector('#filter_when .window-inner')
+        const filterButtonWho   = document.getElementById('filter_button_who')
+        const filterWho         = document.querySelector('#filter_who .window-inner')
+        filterButtonWhat.addEventListener('click',()=>filterToggle(filterWhat))
+        filterWhat.addEventListener('animationend', ()=>filterAnimationEnd(filterWhat))
+        filterButtonWhen.addEventListener('click', ()=>filterToggle(filterWhen))
+        filterWhen.addEventListener('animationend', ()=>filterAnimationEnd(filterWhen))
+        filterButtonWho.addEventListener('click', ()=>filterToggle(filterWho))
+        filterWho.addEventListener('animationend', ()=>filterAnimationEnd(filterWho))
 
-        const filterButtonWhat = document.getElementById('filter_button_what')
-        const filterWhat = document.querySelector('#filter_what .window-inner')
-        filterButtonWhat.addEventListener('click',()=>{
-            // e.preventDefault()
+        async function filterToggle(filter){
+            if(popupOpen){
+                await popupClose()
+            }
             if(!openFilter){
-                filterWhat.classList.add('open')
-                openFilter = filterWhat
+                filter.classList.add('open')
+                openFilter = filter
             }else{
-                if(openFilter != filterWhat){
-                    filterWhat.classList.add('open')
-                    openFilter = filterWhat
+                if(openFilter != filter){
+                    openFilter.classList.add('close')
+                    openFilter = filter
                 }else{
-                    filterWhat.classList.add('close')
+                    filter.classList.add('close')
                     openFilter = false
                 }
             }
+            }
+
+        function filterAnimationEnd(filter){
+            if(filter.classList.contains('close')){
+                filter.classList.remove('close', 'open')
+            }
             if(openFilter){
+                openFilter.classList.add('open')
             }
-        })
+        }
+        function popupClose(button){
+            return new Promise(resolve=>{
+                const popup = document.querySelector('#popup_main .window-inner')
+                if(popup){
+                    popup.classList.remove('open')
+                    popup.classList.add('close')
+                    popup.addEventListener('animationend',()=>{
+                        popupOpen = false
+                        resolve()
+                    }, {once:true})
+                }
+            })
+        }
+        
 
-        filterWhat.addEventListener('animationend', ()=>{
-            if(filterWhat.classList.contains('close')){
-                filterWhat.classList.remove('close', 'open')
-            }
-        })
-        // filterWhat.addEventListener('animationend', e=>{
-        //     filterWhat.classList.remove('open')
-        // })
-
-        // let open = false
-        // const popupMain = document.getElementById('filter_when')
-        // const popupInner = popupMain.querySelector('.window-inner')
-        // popupMain.addEventListener('click',e=>{
-        //     if(!open){
-        //         popupInner.classList.remove('close')
-        //         popupInner.classList.add('open')
-        //         open = true
-        //     }else{
-        //         popupInner.classList.remove('open')
-        //         popupInner.classList.add('close')
-        //         open = false
-        //     }
-        // })
         var map = L.map('map',{zoomControl:false}).setView([51.505, -0.09], 13);
-
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
-
-        const popupContent = `
-        <div class="my-custom-popup">
-            <h3>Location Title</h3>
-            <p>Custom text, images, or buttons can go here.</p>
-            <button onclick="alert('Action triggered!')">Click Me</button>
-        </div>
-        `;
-
-        // 2. Define popup configuration options
-        const popupOptions = {
-        maxWidth: 300,         // Sets maximum width
-        minWidth: 200,         // Sets minimum width
-        className: 'custom-tip' // Custom CSS class for styling
-        };
-
-        // 3. Bind the custom popup to your map marker
-        L.marker([51.5, -0.09])
-            .addTo(map)
-            .bindPopup(popupContent, popupOptions)
-            .openPopup()
+        const marker = L.marker([51.5, -0.09]).addTo(map)
+        marker.on('click', e=>{
+            htmx.ajax('GET', '/mockup/popup.html', {
+                target: '#popup_main',
+                swap: 'innerHTML transition:true'
+            })
+            popupOpen = true;
+        })
     </script>
     <script src="../static/js/load.js"></script>
 </body>

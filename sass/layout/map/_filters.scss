@@ -1,13 +1,6 @@
 @use "variables" as *;
 
-@keyframes filterWhatEnter{
-    // 0%{
-    //     clip-path: polygon(342px 0, 361px 0, 70% 100%, 30% 100%);
-    //     transform:
-    //         perspective(800px)
-    //         rotateX(50deg)
-    //         scaleY(0);
-    // }
+@keyframes filterEnter{
     100%{
         clip-path: polygon(
             0 0,
@@ -21,6 +14,7 @@
             scaleY(1);
     }
 }
+
 
 @keyframes filterWhatExit{
     0%{
@@ -43,22 +37,92 @@
             scaleY(0);
     }
 }
+@keyframes filterWhenExit{
+    0%{
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+        transform:
+            perspective(800px)
+            rotateX(0)
+            scaleY(1);
+    }
+    100%{
+        clip-path: polygon(451px 0, 470px 0, 70% 100%, 30% 100%);
+        transform:
+            perspective(800px)
+            rotateX(50deg)
+            scaleY(0);
+    }
+}
+@keyframes filterWhoExit{
+    0%{
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+        transform:
+            perspective(800px)
+            rotateX(0)
+            scaleY(1);
+    }
+    100%{
+        clip-path: polygon(557px 0, 576px 0, 70% 100%, 30% 100%);
+        transform:
+            perspective(800px)
+            rotateX(50deg)
+            scaleY(0);
+    }
+}
 
 .filter-window{
     @include window-base;
     .window-inner{
         transform-origin: top center;
-	    clip-path: polygon(342px 0, 361px 0, 70% 100%, 30% 100%);
-        transform:
-            perspective(800px)
-            rotateX(50deg)
-            scaleY(0);
-        &.open{
-            animation: filterWhatEnter .3s ease-out forwards;
-        }
-        &.close{
-            animation: filterWhatExit .3s ease-in forwards;
-        }
+    }
+}
+#filter_what .window-inner{
+    clip-path: polygon(342px 0, 361px 0, 70% 100%, 30% 100%);
+    transform:
+        perspective(800px)
+        rotateX(50deg)
+        scaleY(0);
+    &.open{
+        animation: filterEnter .3s ease-out forwards;
+    }
+    &.close{
+        animation: filterWhatExit .3s ease-in forwards;
+    }
+}
+#filter_when .window-inner{
+    clip-path: polygon(451px 0, 470px 0, 70% 100%, 30% 100%);
+    transform:
+        perspective(800px)
+        rotateX(50deg)
+        scaleY(0);
+    &.open{
+        animation: filterEnter .3s ease-out forwards;
+    }
+    &.close{
+        animation: filterWhenExit .3s ease-in forwards;
+    }
+}
+#filter_who .window-inner{
+    clip-path: polygon(557px 0, 576px 0, 70% 100%, 30% 100%);
+    transform:
+        perspective(800px)
+        rotateX(50deg)
+        scaleY(0);
+    &.open{
+        animation: filterEnter .3s ease-out forwards;
+    }
+    &.close{
+        animation: filterWhoExit .3s ease-in forwards;
     }
 }
 
