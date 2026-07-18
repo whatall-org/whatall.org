@@ -81,7 +81,9 @@
                 <img class="filter-callout" src="../static/images/icons/filter-solid-full.svg" alt="">
                 <div class="button-wrap">
                     <div class="filter-button-container">
-                        <button id="filter_button_what"><img src="../static/images/icons/music-note.png" alt="">what</button>
+                        <button id="filter_button_what"><img src="../static/images/icons/music-note.png" alt="">
+                            what
+                        </button>
                         <div class="filter-what-arrow"></div>
                     </div>
                     <div class="filter-button-container">
@@ -99,7 +101,43 @@
                 </div>
                 <div id="filter_what" class="filter-window">
                     <div class="window-inner">
-                        What
+                        <form action="">
+                            <div class="title">
+                                <h3>What is it?</h3>
+                            </div>
+                            <div class="category input-wrapper">
+                                <label for="categories">Categories:</label>
+                                <select multiple name="categories" id="input_categories">
+                                    <option value="music">Music</option>
+                                    <option value="community">Community</option>
+                                    <option value="civics">Civics</option>
+                                    <option value="exercise">Exercise</option>
+                                    <option value="diy">DIY</option>
+                                    <option value="mutual_aid">Mutual Aid</option>
+                                    <option value="dancing">Dancing</option>
+                                    <option value="reading">Reading</option>
+                                </select>
+                            </div>
+                            <div class="twentyoneplus input-wrapper">
+                                <label for="twentyone_plus">Twenty One Plus:</label>
+                                <input type="checkbox" name="twentyone_plus" id="bool_twentyone_plus">
+                            </div>
+                            <div class="food input-wrapper">
+                                <label for="food">Food:</label>
+                                <input type="checkbox" name="food" id="input_food">
+                            </div>
+                            <div class="amenities">
+                                <p class="title">Amenities</p>
+                                <div class="parking input-wrapper">
+                                    <label for="parking">Parking:</label>
+                                    <input type="checkbox" name="parking" id="input_parking">
+                                </div>
+                                <div class="ada-compliant input-wrapper">
+                                    <label for="ada_compliant">ADA Compliant</label>
+                                    <input type="checkbox" name="ada_compliant" id="input_ada_compliant">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div id="filter_when" class="filter-window">
