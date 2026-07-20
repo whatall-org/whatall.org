@@ -141,13 +141,90 @@
                     </div>
                 </div>
                 <div id="filter_when" class="filter-window">
-                    <div class="window-inner">
-                        When
+                    <div class="window-inner open">
+                        <form action="">
+                            <div class="title">
+                                <h3>When is it?</h3>
+                            </div>
+                            <div class="time input-wrapper">
+                                <label for="time">After:</label>
+                                <input type="time" name="time" id="input_time">
+                            </div>
+                            <div class="month input-wrapper">
+                                <label for="month">Month:</label>
+                                 <select name="month" id="input_month">
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                 </select>
+                            </div>
+                            <div class="month input-wrapper">
+                                <label for="day">Day:</label>
+                                <select name="day" id="input_day">
+                                    <option value="1">Monday</option>
+                                    <option value="2">Tuesday</option>
+                                    <option value="3">Wednesday</option>
+                                    <option value="4">Thursday</option>
+                                    <option value="5">Friday</option>
+                                    <option value="6">Saturday</option>
+                                    <option value="0">Sunday</option>
+                                </select>
+                            </div>
+                            <div class="date input-wrapper">
+                                <label for="date">Date:</label>
+                                <input type="date" name="date" id="input_date">
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div id="filter_who" class="filter-window">
                     <div class="window-inner">
-                        Who
+                        <form action="">
+                            <div class="title">
+                                <h3>What is it?</h3>
+                            </div>
+                            <div class="category input-wrapper">
+                                <label for="categories">Categories:</label>
+                                <select multiple name="categories" id="input_categories">
+                                    <option value="music">Music</option>
+                                    <option value="community">Community</option>
+                                    <option value="civics">Civics</option>
+                                    <option value="exercise">Exercise</option>
+                                    <option value="diy">DIY</option>
+                                    <option value="mutual_aid">Mutual Aid</option>
+                                    <option value="dancing">Dancing</option>
+                                    <option value="reading">Reading</option>
+                                </select>
+                            </div>
+                            <div class="twentyoneplus input-wrapper">
+                                <label for="twentyone_plus">Twenty One Plus:</label>
+                                <input type="checkbox" name="twentyone_plus" id="bool_twentyone_plus">
+                            </div>
+                            <div class="food input-wrapper">
+                                <label for="food">Food:</label>
+                                <input type="checkbox" name="food" id="input_food">
+                            </div>
+                            <div class="amenities">
+                                <p class="title">Amenities</p>
+                                <div class="parking input-wrapper">
+                                    <label for="parking">Parking:</label>
+                                    <input type="checkbox" name="parking" id="input_parking">
+                                </div>
+                                <div class="ada-compliant input-wrapper">
+                                    <label for="ada_compliant">ADA Compliant</label>
+                                    <input type="checkbox" name="ada_compliant" id="input_ada_compliant">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -163,63 +240,8 @@
             <button>Submit an Event</button>
         </footer>
     </div>
+    <script src="../static/js/windows.js"></script>
     <script>
-        let openFilter          = false
-        let popupOpen           = false
-        const filterButtonWhat  = document.getElementById('filter_button_what')
-        const filterWhat        = document.querySelector('#filter_what .window-inner')
-        const filterButtonWhen  = document.getElementById('filter_button_when')
-        const filterWhen        = document.querySelector('#filter_when .window-inner')
-        const filterButtonWho   = document.getElementById('filter_button_who')
-        const filterWho         = document.querySelector('#filter_who .window-inner')
-        filterButtonWhat.addEventListener('click',()=>filterToggle(filterWhat))
-        filterWhat.addEventListener('animationend', ()=>filterAnimationEnd(filterWhat))
-        filterButtonWhen.addEventListener('click', ()=>filterToggle(filterWhen))
-        filterWhen.addEventListener('animationend', ()=>filterAnimationEnd(filterWhen))
-        filterButtonWho.addEventListener('click', ()=>filterToggle(filterWho))
-        filterWho.addEventListener('animationend', ()=>filterAnimationEnd(filterWho))
-
-        async function filterToggle(filter){
-            if(popupOpen){
-                await popupClose()
-            }
-            if(!openFilter){
-                filter.classList.add('open')
-                openFilter = filter
-            }else{
-                if(openFilter != filter){
-                    openFilter.classList.add('close')
-                    openFilter = filter
-                }else{
-                    filter.classList.add('close')
-                    openFilter = false
-                }
-            }
-            }
-
-        function filterAnimationEnd(filter){
-            if(filter.classList.contains('close')){
-                filter.classList.remove('close', 'open')
-            }
-            if(openFilter){
-                openFilter.classList.add('open')
-            }
-        }
-        function popupClose(button){
-            return new Promise(resolve=>{
-                const popup = document.querySelector('#popup_main .window-inner')
-                if(popup){
-                    popup.classList.remove('open')
-                    popup.classList.add('close')
-                    popup.addEventListener('animationend',()=>{
-                        popupOpen = false
-                        resolve()
-                    }, {once:true})
-                }
-            })
-        }
-        
-
         var map = L.map('map',{zoomControl:false}).setView([51.505, -0.09], 13);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
