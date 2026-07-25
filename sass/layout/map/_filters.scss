@@ -15,7 +15,6 @@
     }
 }
 
-
 @keyframes filterWhatExit{
     0%{
         clip-path: polygon(
@@ -30,7 +29,7 @@
             scaleY(1);
     }
     100%{
-        clip-path: polygon(342px 0, 361px 0, 70% 100%, 30% 100%);
+        clip-path: polygon(161px 0, 181px 0, 70% 100%, 30% 100%);
         transform:
             perspective(800px)
             rotateX(50deg)
@@ -51,7 +50,7 @@
             scaleY(1);
     }
     100%{
-        clip-path: polygon(451px 0, 470px 0, 70% 100%, 30% 100%);
+        clip-path: polygon(270px 0, 290px 0, 70% 100%, 30% 100%);
         transform:
             perspective(800px)
             rotateX(50deg)
@@ -72,7 +71,7 @@
             scaleY(1);
     }
     100%{
-        clip-path: polygon(557px 0, 576px 0, 70% 100%, 30% 100%);
+        clip-path: polygon(377px 0, 396px 0, 70% 100%, 30% 100%);
         transform:
             perspective(800px)
             rotateX(50deg)
@@ -112,7 +111,7 @@
     }
 }
 #filter_what .window-inner{
-    clip-path: polygon(342px 0, 361px 0, 70% 100%, 30% 100%);
+    clip-path: polygon(161px 0, 181px 0, 70% 100%, 30% 100%);
     transform:
         perspective(800px)
         rotateX(50deg)
@@ -180,7 +179,7 @@
     }
 }
 #filter_when .window-inner{
-    clip-path: polygon(451px 0, 470px 0, 70% 100%, 30% 100%);
+    clip-path: polygon(270px 0, 290px 0, 70% 100%, 30% 100%);
     transform:
         perspective(800px)
         rotateX(50deg)
@@ -193,7 +192,7 @@
     }
 }
 #filter_who .window-inner{
-    clip-path: polygon(557px 0, 576px 0, 70% 100%, 30% 100%);
+    clip-path: polygon(377px 0, 396px 0, 70% 100%, 30% 100%);
     transform:
         perspective(800px)
         rotateX(50deg)
@@ -204,11 +203,28 @@
     &.close{
         animation: filterWhoExit .3s ease-in forwards;
     }
+    select{
+        flex: 0 1 150px;
+        padding: 2px 10px 2px 2px;
+        outline: none;
+        option{
+            border: 1px black solid;
+            margin: 2px 0;
+            padding: 5px;
+            border-radius: 4px;
+            &:first-child{
+                margin-top: 0;
+            }
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+    }
 }
 
 .filter-button-container{
     position: relative;
-    .filter-what-arrow,.filter-when-arrow{
+    .filter-what-arrow,.filter-when-arrow,.filter-who-arrow{
         position: absolute;
         bottom: -25px;
         right: 30px;
@@ -216,6 +232,10 @@
         border-right: 10px solid transparent;
         border-bottom: 10px solid black;
         pointer-events: none;
-        // opacity: 0;
+        transition: opacity .3s ease;
+        opacity: 0;
+        &.open{
+            opacity: 1;
+        }
     }
 }

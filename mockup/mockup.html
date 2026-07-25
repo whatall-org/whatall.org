@@ -96,11 +96,11 @@
                         <button id="filter_button_who"><img src="../static/images/icons/people-icon-gay.png" alt="">
                             who
                         </button>
-                        <div class="filter-when-arrow"></div>
+                        <div class="filter-who-arrow"></div>
                     </div>
                 </div>
                 <div id="filter_what" class="filter-window">
-                    <div class="window-inner">
+                    <div class="window-inner" data-filter-name="what">
                         <form action="">
                             <div class="title">
                                 <h3>What is it?</h3>
@@ -141,7 +141,7 @@
                     </div>
                 </div>
                 <div id="filter_when" class="filter-window">
-                    <div class="window-inner open">
+                    <div class="window-inner" data-filter-name="when">
                         <form action="">
                             <div class="title">
                                 <h3>When is it?</h3>
@@ -187,42 +187,32 @@
                     </div>
                 </div>
                 <div id="filter_who" class="filter-window">
-                    <div class="window-inner">
+                    <div class="window-inner" data-filter-name="who">
                         <form action="">
                             <div class="title">
-                                <h3>What is it?</h3>
+                                <h3>Who is it?</h3>
                             </div>
-                            <div class="category input-wrapper">
-                                <label for="categories">Categories:</label>
-                                <select multiple name="categories" id="input_categories">
-                                    <option value="music">Music</option>
-                                    <option value="community">Community</option>
-                                    <option value="civics">Civics</option>
-                                    <option value="exercise">Exercise</option>
-                                    <option value="diy">DIY</option>
-                                    <option value="mutual_aid">Mutual Aid</option>
-                                    <option value="dancing">Dancing</option>
-                                    <option value="reading">Reading</option>
+                            <div class="age input-wrapper">
+                                <label for="age">Age:</label>
+                                <select multiple name="age" id="input_age">
+                                    <option value="children">Children</option>
+                                    <option value="20s">20s</option>
+                                    <option value="30s">30s</option>
+                                    <option value="40s">40s</option>
+                                    <option value="50s">50s</option>
+                                    <option value="60s+">60s+</option>
+                                    <option value="allages">All Ages</option>
                                 </select>
                             </div>
-                            <div class="twentyoneplus input-wrapper">
-                                <label for="twentyone_plus">Twenty One Plus:</label>
-                                <input type="checkbox" name="twentyone_plus" id="bool_twentyone_plus">
-                            </div>
-                            <div class="food input-wrapper">
-                                <label for="food">Food:</label>
-                                <input type="checkbox" name="food" id="input_food">
-                            </div>
-                            <div class="amenities">
-                                <p class="title">Amenities</p>
-                                <div class="parking input-wrapper">
-                                    <label for="parking">Parking:</label>
-                                    <input type="checkbox" name="parking" id="input_parking">
-                                </div>
-                                <div class="ada-compliant input-wrapper">
-                                    <label for="ada_compliant">ADA Compliant</label>
-                                    <input type="checkbox" name="ada_compliant" id="input_ada_compliant">
-                                </div>
+                            <div class="identity input-wrapper">
+                                <label for="identities">Identity:</label>
+                                <select multiple name="identities" id="input_identities">
+                                    <option value="gay">Gay AF</option>
+                                    <option value="women">Women</option>
+                                    <option value="goth">Goth</option>
+                                    <option value="neurodivergent">Neurodivergent</option>
+                                    <option value="disabled">Disabled</option>
+                                </select>
                             </div>
                         </form>
                     </div>
@@ -247,13 +237,7 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
         const marker = L.marker([51.5, -0.09]).addTo(map)
-        marker.on('click', e=>{
-            htmx.ajax('GET', '/mockup/popup.html', {
-                target: '#popup_main',
-                swap: 'innerHTML transition:true'
-            })
-            popupOpen = true;
-        })
+        marker.on('click', ()=>popupOpen())
     </script>
     <script src="../static/js/load.js"></script>
 </body>

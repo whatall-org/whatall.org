@@ -1,16 +1,16 @@
 let openFilter          = false
-let popupOpen           = false
+let isPopupOpen           = false
 const filterButtonWhat  = document.getElementById('filter_button_what')
 const filterWhat        = document.querySelector('#filter_what .window-inner')
 const filterButtonWhen  = document.getElementById('filter_button_when')
 const filterWhen        = document.querySelector('#filter_when .window-inner')
 const filterButtonWho   = document.getElementById('filter_button_who')
 const filterWho         = document.querySelector('#filter_who .window-inner')
-filterButtonWhat.addEventListener('click',()=>filterToggle(filterWhat))
+filterButtonWhat.addEventListener('click',()=>filterToggleStart(filterWhat))
 filterWhat.addEventListener('animationend', ()=>filterAnimationEnd(filterWhat))
-filterButtonWhen.addEventListener('click', ()=>filterToggle(filterWhen))
+filterButtonWhen.addEventListener('click', ()=>filterToggleStart(filterWhen))
 filterWhen.addEventListener('animationend', ()=>filterAnimationEnd(filterWhen))
-filterButtonWho.addEventListener('click', ()=>filterToggle(filterWho))
+filterButtonWho.addEventListener('click', ()=>filterToggleStart(filterWho))
 filterWho.addEventListener('animationend', ()=>filterAnimationEnd(filterWho))
 
 const timeInput     = document.getElementById('input_time')
@@ -19,29 +19,42 @@ const monthInput    = document.getElementById('input_month')
 const dateInput     = document.getElementById('input_date')
 const today         = new Date()
 
-console.log(String(today.getDay() + 1))
 timeInput.value     = `${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`
 dayInput.value      = `${today.getDay()}`
 monthInput.value    = `${(today.getMonth() + 1).toString().padStart(2, '0')}`
 dateInput.value     = `${today.getFullYear()}-${String(today.getMonth()  + 1).padStart(2, '0')}-${String(today.getUTCDate()).padStart(2, '0')}`
 
-async function filterToggle(filter){
-    if(popupOpen){
+async function filterToggleStart(filter){
+    if(isPopupOpen){
         await popupClose()
     }
-    if(!openFilter){
-        filter.classList.add('open')
-        openFilter = filter
-    }else{
-        if(openFilter != filter){
-            openFilter.classList.add('close')
+    filterToggle(filter)
+}
+
+function filterToggle(filter){
+    return new Promise(resolve=>{
+        const filterArrow = document.querySelector(`.filter-${filter.dataset.filterName}-arrow`)
+        if(!openFilter){
+            filter.classList.add('open')
+            filterArrow.classList.add('open')
             openFilter = filter
         }else{
-            filter.classList.add('close')
-            openFilter = false
+            document.querySelector(`.filter-${openFilter.dataset.filterName}-arrow`).classList.remove('open')
+            if(openFilter != filter){
+                openFilter.classList.add('close')
+    
+                openFilter = filter
+            }else{
+                filter.classList.add('close')
+                filterArrow.classList.remove('open')
+                openFilter = false
+                filter.addEventListener('animationend',()=>{
+                    resolve()
+                }, {once:true})
+            }
         }
-    }
-    }
+    })
+}
 
 function filterAnimationEnd(filter){
     if(filter.classList.contains('close')){
@@ -49,7 +62,18 @@ function filterAnimationEnd(filter){
     }
     if(openFilter){
         openFilter.classList.add('open')
+        document.querySelector(`.filter-${openFilter.dataset.filterName}-arrow`).classList.add('open')
     }
+}
+async function popupOpen(){
+    if(openFilter){
+        await filterToggle(openFilter)
+    }
+    htmx.ajax('GET', '/mockup/popup.html', {
+        target: '#popup_main',
+        swap: 'innerHTML transition:true'
+    })
+    isPopupOpen = true
 }
 function popupClose(button){
     return new Promise(resolve=>{
@@ -58,7 +82,7 @@ function popupClose(button){
             popup.classList.remove('open')
             popup.classList.add('close')
             popup.addEventListener('animationend',()=>{
-                popupOpen = false
+                isPopupOpen = false
                 resolve()
             }, {once:true})
         }
