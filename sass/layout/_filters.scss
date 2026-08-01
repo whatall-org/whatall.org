@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use "../variables" as *;
 
 @keyframes filterEnter{
     100%{
@@ -80,7 +80,7 @@
 }
 
 .filter-window{
-    @include window-base;
+    @include popup-base;
     .window-inner{
         display: flex;
         justify-content: center;

@@ -26,7 +26,7 @@ dateInput.value     = `${today.getFullYear()}-${String(today.getMonth()  + 1).pa
 
 async function filterToggleStart(filter){
     if(isPopupOpen){
-        await popupClose()
+        await windowClose()
     }
     filterToggle(filter)
 }
@@ -65,24 +65,32 @@ function filterAnimationEnd(filter){
         document.querySelector(`.filter-${openFilter.dataset.filterName}-arrow`).classList.add('open')
     }
 }
-async function popupOpen(){
+async function popupOpen(url){
     if(openFilter){
         await filterToggle(openFilter)
     }
-    htmx.ajax('GET', '/mockup/popup.html', {
+    htmx.ajax('GET', `/mockup/${url}`, {
         target: '#popup_main',
         swap: 'innerHTML transition:true'
     })
     isPopupOpen = true
 }
-function popupClose(button){
+function windowClose(button){
     return new Promise(resolve=>{
-        const popup = document.querySelector('#popup_main .window-inner')
+        let popup
+        if(button){
+            popup = button.parentElement
+        }else{
+            popup = document.querySelector('#popup_main .window-inner')
+        }
         if(popup){
             popup.classList.remove('open')
             popup.classList.add('close')
             popup.addEventListener('animationend',()=>{
                 isPopupOpen = false
+                if(button){
+                    popup.remove()
+                }
                 resolve()
             }, {once:true})
         }

@@ -1,0 +1,52 @@
+@use "heights" as *;
+@use "screen" as *;
+
+$popup-border-radius: 8px;
+$popup-border: 3px black solid;
+
+@mixin window-base{
+    position: absolute;
+    z-index: 1000;
+    top: $height-header-main;
+    right: 0;
+    height: calc(100dvh - $height-header-main - $height-footer-main);
+    width: 100%;
+    color: white;
+}
+
+@mixin popup-base{
+    @include window-base;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+    .window-inner{
+        position: relative;
+        margin: 13px 10px 10px 10px;
+        border: $popup-border;
+        background-color: #4b3663;
+        flex: 0 1 $screen-map-break-header;
+        border-radius: $popup-border-radius;
+        box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+        pointer-events: auto;
+    }
+}
+
+@mixin page-base{
+    @include window-base;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+    .window-inner{
+        position: relative;
+        z-index: 1;
+        margin: 13px 10px 10px 10px;
+        border: $popup-border;
+        background-color: #4b3663;
+        // flex: 0 1 $screen-map-break-header;
+        // flex: ;
+        width: 100%;
+        border-radius: $popup-border-radius;
+        box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+        pointer-events: auto;
+    }
+}

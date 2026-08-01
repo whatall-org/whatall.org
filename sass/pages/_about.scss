@@ -1,0 +1,49 @@
+@use "../variables/" as *;
+
+#page_main{
+    @include page-base;
+    .window-inner{
+        view-transition-name: page-main;
+        &.open{
+            animation: spin-in 1s cubic-bezier(0.5, .9, 0.7, 1);
+        }
+        &.close{
+            animation: spin-out .8s ease-out forwards;
+        }
+    }
+}
+
+#root:has(.page-about) .link-about{
+    background-color: blue;
+}
+
+@keyframes spin-in{
+    from{
+        transform: scale(0) rotate(0deg);
+    }
+    to{
+        transform: scale(1) rotate(360deg);
+    }
+}
+@keyframes spin-out{
+    from{
+        transform: translateX(0) rotate(0) scale(1);
+        
+    }
+    to{
+        transform: translateX(-120%) rotate(-360deg) scale(.5);
+    }
+}
+
+// ::view-transition-old(map-popup),
+// ::view-transition-new(map-popup){
+//     transform-origin: 100% 50%;
+//     backface-visibility: hidden;
+//     mix-blend-mode: normal;
+// }
+::view-transition-new(page-main){
+    animation: spin-in 1s cubic-bezier(0.5, 1.1, 0.7, 1);
+}
+// ::view-transition-old(page-main){
+//     animation: popupExit .4s ease-in forwards;
+// }

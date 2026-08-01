@@ -73,7 +73,7 @@
     <div id="root">
         <header class="header-map">
             <nav>
-                <a href="/">about</a>
+                <a class="link-about"  hx-get="/mockup/about.html" hx-target="#page_main" hx-swap="innerHTML transition:true">about</a>
                 <a href="/">contribute</a>
                 <a href="/">requests</a>
             </nav>
@@ -99,7 +99,7 @@
                         <div class="filter-who-arrow"></div>
                     </div>
                 </div>
-                <div id="filter_what" class="filter-window">
+                <div id="filter_what" class="filter-window" x-show="tab === 'what'">
                     <div class="window-inner" data-filter-name="what">
                         <form action="">
                             <div class="title">
@@ -223,8 +223,11 @@
             <div class="close">X</div>
             <p>Click here to filter results</p>
         </div>
-        <div id="popup_main"></div>
+        <!-- <div id="popup_main" hx-get="/mockup/popup.html" hx-trigger="load"></div> -->
         <div id="map" class="content"></div>
+        <div id="popup_main"></div>
+        <div id="page_main">
+        </div>
         <footer class="footer-map">
             <p>Every submission is reviewed to add to the map!</p>
             <button>Submit an Event</button>
@@ -237,7 +240,7 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
         const marker = L.marker([51.5, -0.09]).addTo(map)
-        marker.on('click', ()=>popupOpen())
+        marker.on('click', ()=>popupOpen('popup.html'))
     </script>
     <script src="../static/js/load.js"></script>
 </body>

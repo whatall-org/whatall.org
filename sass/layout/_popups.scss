@@ -1,5 +1,4 @@
-@use "variables" as *;
-@use "../../variables" as *;
+@use "../variables" as *;
 
 $popup-border-radius: 8px;
 $popup-border-thickness: 3px;
@@ -43,7 +42,7 @@ $popup-border: $popup-border-thickness black solid;
 }
 
 #popup_main{
-    @include window-base;
+    @include popup-base;
     .window-inner{
         display: grid;
         grid-template-rows: auto 1fr;
@@ -53,6 +52,7 @@ $popup-border: $popup-border-thickness black solid;
         transform-origin: 100% 50%;
         backface-visibility: hidden;
         mix-blend-mode: normal;
+        overflow: hidden;
         &.close{
             animation: popupExit .4s ease-in forwards;
         }
@@ -61,7 +61,7 @@ $popup-border: $popup-border-thickness black solid;
             position: absolute;
             right: 2px;
             top: 2px;
-            z-index: 1;
+            z-index: 10;
             padding: 1px 4px;
             background-color: white;
             color: black;
@@ -71,7 +71,7 @@ $popup-border: $popup-border-thickness black solid;
         header.header-main{
             display: flex;
             justify-content: space-around;
-            grid-area: "header";
+            grid-area: header;
             .tab-lineup,.tab-place-details{
                 cursor: pointer;
                 position: relative;
@@ -88,6 +88,7 @@ $popup-border: $popup-border-thickness black solid;
                     linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%),
                     linear-gradient(315deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 50%);
                 background-blend-mode: overlay, multiply;
+                transition: background-color .2s;
                 h3{
                     font-size: 22px;
                     margin: 0;
@@ -121,55 +122,91 @@ $popup-border: $popup-border-thickness black solid;
                 bottom: 0;
                 z-index: 0;
             }
+            .tab-place-details.active::after{
+                opacity: 0;
+            }
             .tab-place-details{
                 border-bottom-right-radius: calc($popup-border-radius - $popup-border-thickness);
                 span{font-size: 14px;}
             }
         }
-        .content-lineup{
+        .content{
             grid-area: content;
             color: white;
-            overflow-y: scroll;
-            a.card-event{
-                display: block;
-                margin: 15px;
-                border: 3px black solid;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-                border-radius: $popup-border-radius;
-                background-color: #644884;
-                color: white;
-                text-decoration: none;
-                header.header-card{
-                    padding: 20px;
-                    background-color: black;
-                    h3{
-                        margin-top: 0;
-                        margin-bottom: 4px;
-                        color: hotpink;
-                        text-decoration: underline;
-                        text-decoration-color: white;
-                        text-decoration-thickness: 2px;
-                    }
-                    .when{
-                        color: white;
-                        .date,.time{
-                            display: flex;
-                            gap: 3px;
-                            img{width: 20px;}
-                            p{margin: 4px 0;}
+            overflow-y: hidden;
+            display: flex;
+            width: 200%;
+            transition: transform .2s ease-out;
+            &.show-lineup{
+                transform: translateX(0);
+            }
+            &.show-place{
+                transform: translateX(-50%);
+            }
+            .content-lineup,.content-place-details{
+                overflow-y: scroll;
+                flex: 0 0 50%;
+            }
+            .content-lineup{
+                a.card-event{
+                    display: block;
+                    margin: 15px;
+                    border: 3px black solid;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+                    border-radius: $popup-border-radius;
+                    background-color: #644884;
+                    color: white;
+                    text-decoration: none;
+                    header.header-card{
+                        padding: 20px;
+                        background-color: black;
+                        h3{
+                            margin-top: 0;
+                            margin-bottom: 4px;
+                            @include text-link;
+                        }
+                        .when{
+                            color: white;
+                            .date,.time{
+                                display: flex;
+                                gap: 3px;
+                                img{width: 20px;}
+                                p{margin: 4px 0;}
+                            }
                         }
                     }
+                    .img-wrapper{
+                        padding: 20px;
+                        padding-bottom: 0;
+                        img{width: 100%;}
+                    }
+                    .description{
+                        padding: 0 20px;
+                    }
                 }
-                .img-wrapper{
-                    padding: 20px;
-                    padding-bottom: 0;
-                    img{width: 100%;}
-                }
-                .description{
-                    padding: 0 20px;
+            }
+            .content-place-details{
+                padding-bottom: 100px;
+                header.header-place{
+                    margin: 0 15px;
+                    .details{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        .location,.insta{
+                            @include text-link-button;
+                            display: flex;
+                            align-items: center;
+                            // padding: 0;
+                            img{width: 40px;}
+                        }
+                    }
+                    .img-wrapper{
+                        padding: 20px 0;
+                        img{width: 100%;}
+                    }
                 }
             }
         }
     }
-    // display: none;
 }

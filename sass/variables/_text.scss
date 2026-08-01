@@ -1,11 +1,16 @@
-@mixin text-link-header{
+@mixin text-link{
     color: hotpink;
     font-family: "Figtree", sans-serif;
     font-optical-sizing: auto;
     font-weight: bold;
     font-style: normal;
+    text-decoration: underline;
     text-decoration-color: white;
     text-decoration-thickness: 2px;
+}
+
+@mixin text-link-button{
+    @include text-link;
     background-color: black;
     padding: 4px 10px 8px 10px;
     border-radius: 5px;

@@ -1,5 +1,4 @@
-@use "../../variables/" as *;
-@use "variables" as *;
+@use "../variables" as *;
 
 header.header-map{
     position: absolute;
@@ -23,7 +22,7 @@ header.header-map{
         display: flex;
         align-items: center;
         gap: 1rem;
-        a{@include text-link-header;}
+        a{@include text-link-button;}
     }
     .filters{
         display: flex;
